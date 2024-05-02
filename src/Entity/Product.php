@@ -25,7 +25,7 @@ class Product
 
     #[ORM\ManyToOne(targetEntity: Tax::class)]
     #[ORM\JoinColumn(name: 'tax_id', referencedColumnName: 'id')]
-    private ?int $taxId = null;
+    private $taxId = null;
 
     public function getId(): ?int
     {
@@ -68,12 +68,12 @@ class Product
         return $this;
     }
 
-    public function getTax(): ?Tax
+    public function getTaxId(): ?Tax
     {
         return $this->taxId; 
     }
 
-    public function setTax(Tax $taxId): void 
+    public function setTaxId(Tax $taxId): void 
     {
         $this->taxId = $taxId;
     }

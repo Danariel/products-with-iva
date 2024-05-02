@@ -38,24 +38,11 @@ class ProductRepository extends ServiceEntityRepository
 
         $this->getEntityManager()->persist($product);
         $this->getEntityManager()->flush();
+
+        return $product;
     }
 
-//    /**
-//     * @return Product[] Returns an array of Product objects
-//     */
-//    public function findByExampleField($value): array
-//    {
-//        return $this->createQueryBuilder('p')
-//            ->andWhere('p.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->orderBy('p.id', 'ASC')
-//            ->setMaxResults(10)
-//            ->getQuery()
-//            ->getResult()
-//        ;
-//    }
-
-   public function filters(?array $params): ?array
+   public function filters(?array $params = []): ?array
    {
         $pagesResults = 10;
 
@@ -64,7 +51,7 @@ class ProductRepository extends ServiceEntityRepository
         if (!empty($params)) {
             if (array_key_exists('name', $params)) {
                 $query->andWhere('p.name LIKE :name')
-                    ->setParameter('name', '%'.$value.'%');
+                    ->setParameter('name', '%'.$params['name'].'%');
             }
             if (array_key_exists('page', $params)) {
                 $query->setFirstResult(($params['page'] - 1) * $pagesResults)
@@ -73,9 +60,9 @@ class ProductRepository extends ServiceEntityRepository
 
         }
 
-        $query->getQuery()
+        $data = $query->getQuery()
            ->getResult();
 
-        return $query;
+        return $data ?? null;
    }
 }
