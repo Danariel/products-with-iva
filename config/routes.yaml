@@ -1,3 +1,13 @@
-#index:
-#    path: /
-#    controller: App\Controller\DefaultController::index
+api_product_get:
+  path: /api/products
+  methods: [GET]
+  controller: App\Controller\ProductController::getProducts
+  
+api_product_add:
+  path: /api/products
+  methods: [POST]
+  controller: App\Controller\ProductController::addProduct
+
+
+
+
